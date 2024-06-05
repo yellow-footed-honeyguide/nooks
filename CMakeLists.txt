@@ -3,7 +3,7 @@ project(nooks VERSION 1.0.0)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
-add_executable(nooks nooks.c)
+add_executable(nooks nooks.c handle_arguments.c actions.c)
 
 # Set the default build output directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
