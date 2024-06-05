@@ -105,7 +105,7 @@ void go_to_directory(const char *spot) {
             // Check if the spot matches the specified spot
             if (strcmp(saved_spot, spot) == 0) {
                 // Print the spot to which the relocation will occur
-                printf("Leapt into the nook '%s': %s\n", spot, saved_dir);
+                printf("Leapt into the nook '%s':\n %s\n", spot, saved_dir);
 
                 // Change the current directory to the saved directory
                 if (chdir(saved_dir) == -1) {
