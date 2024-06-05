@@ -167,3 +167,32 @@ void show_all_spots() {
 
     fclose(file);
 }
+
+
+
+/**
+ * Displays the usage information for the program.
+ *
+ * @param nooks The name of the program.
+ */
+void print_help() {
+    printf("Usage: nooks [OPTION]... [DIRECTORY]\n");
+    printf("Navigate to saved directories or save the current directory.\n");
+    printf("\n");
+    printf("Options:\n");
+    printf("  -s, --save [NAME]   Save the current directory with an optional NAME (default: 'default')\n");
+    printf("  -a, --all           Show all saved directories\n");
+    printf("  -h, --help          Display this help and exit\n");
+    printf("\n");
+    printf("If no options are provided, navigate to the directory specified by DIRECTORY.\n");
+    printf("If DIRECTORY is not provided, navigate to the default saved directory.\n");
+    printf("\n");
+    printf("Examples:\n");
+    printf("  nooks -s                   Save the current directory as the default directory\n");
+    printf("  nooks -s work              Save the current directory with the name 'work'\n");
+    printf("  nooks                      Navigate to the default saved directory\n");
+    printf("  nooks work                 Navigate to the directory saved with the name 'work'\n");
+    printf("  nooks -a                   Show all saved directories\n");
+    printf("\n");
+    printf("Report bugs to https://github.com/yellow-footed-honeyguide/nooks/issues\n");
+}
