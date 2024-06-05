@@ -34,6 +34,13 @@ cmake ..
 make
 ```
 
+Now you can move nooks to /usr/local/bin/
+```
+sudo mv ./nooks /usr/local/bin/
+```
+
+
+
 ### Executing program
 Prepare to be amazed by the sheer awesomeness of nooks!
 
