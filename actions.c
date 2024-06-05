@@ -196,3 +196,9 @@ void print_help() {
     printf("\n");
     printf("Report bugs to https://github.com/yellow-footed-honeyguide/nooks/issues\n");
 }
+
+
+void print_version() {
+    printf("%s\n", NOOKS_VERSION);
+}
+

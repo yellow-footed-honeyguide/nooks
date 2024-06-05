@@ -8,5 +8,6 @@ void save_current_directory(const char *spot);
 void go_to_directory(const char *spot);
 void show_all_spots();
 void print_usage();
+void print_version();
 
 #endif

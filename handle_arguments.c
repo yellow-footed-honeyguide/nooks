@@ -14,13 +14,14 @@ void handle_arguments(int argc, char *argv[]) {
         {"save", required_argument, 0, 's'},
         {"all",  no_argument,       0, 'a'},
         {"help", no_argument,       0, 'h'},
+        {"version", no_argument,    0, 'v'},
         {0,      0,                 0,  0 }
     };
     
     int long_index = 0;
     
     // Parse command-line options
-    while ((opt = getopt_long(argc, argv, "s:ah", long_options, &long_index)) != -1) {
+    while ((opt = getopt_long(argc, argv, "s:ahv", long_options, &long_index)) != -1) {
         switch (opt) {
             case 's':
                 // Save current directory with provided name
@@ -34,6 +35,10 @@ void handle_arguments(int argc, char *argv[]) {
             case 'h':
                 // Print help information
                 print_help();
+                break;
+            case 'v':
+                // Print verison of nooks
+                print_version();
                 break;
             case '?':
                 // Handle unknown options and missing arguments
