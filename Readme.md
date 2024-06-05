@@ -66,7 +66,7 @@ $ nooks -a              # Show all saved spots
 
 
 ### Executing program
-![usage-example](assets/uc_examples.gif)
+![usage-example](assets/nooks.gif)
 
 ## Authors
 Contributors names and contact info
