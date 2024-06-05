@@ -10,4 +10,7 @@ void show_all_spots();
 void print_usage();
 void print_version();
 
+extern int quiet_mode;
+void quit_work();
+
 #endif

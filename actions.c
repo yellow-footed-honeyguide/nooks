@@ -4,6 +4,13 @@
 #include <unistd.h>
 #include "actions.h"
 
+int quiet_mode = 0;
+
+void quit_work() {
+    quiet_mode = 1;
+}
+
+
 void save_current_directory(const char *spot) {
     char *home_dir = getenv("HOME");
     char config_path[MAX_PATH];
@@ -64,8 +71,9 @@ void save_current_directory(const char *spot) {
         perror("Error renaming temporary file");
         exit(1);
     }
-
-    printf("Nook marked as '%s'\n", spot);
+    if (!quiet_mode) {
+       printf("Nook marked as '%s'\n", spot);
+    }
 }
 
 /**
@@ -105,7 +113,9 @@ void go_to_directory(const char *spot) {
             // Check if the spot matches the specified spot
             if (strcmp(saved_spot, spot) == 0) {
                 // Print the spot to which the relocation will occur
-                printf("nook '%s': \033[3m%s\033[0m\n", spot, saved_dir);
+                if (!quiet_mode) {
+                   printf("Nook '%s': \033[3m%s\033[0m\n", spot, saved_dir);
+                }
 
                 // Change the current directory to the saved directory
                 if (chdir(saved_dir) == -1) {
@@ -139,7 +149,9 @@ void go_to_directory(const char *spot) {
     fclose(file);
 
     // Print an error message if the spot is not found
-    fprintf(stderr, "Nook '%s' not found\n", spot);
+    if (!quiet_mode) {
+       fprintf(stderr, "Nook '%s' not found\n", spot);
+    }
 }
 
 void show_all_spots() {
