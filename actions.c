@@ -105,7 +105,7 @@ void go_to_directory(const char *spot) {
             // Check if the spot matches the specified spot
             if (strcmp(saved_spot, spot) == 0) {
                 // Print the spot to which the relocation will occur
-                printf("Leapt into the nook '%s':\n %s\n", spot, saved_dir);
+                printf("nook '%s': \033[3m%s\033[0m\n", spot, saved_dir);
 
                 // Change the current directory to the saved directory
                 if (chdir(saved_dir) == -1) {
@@ -153,7 +153,7 @@ void show_all_spots() {
         return;
     }
 
-    printf("Saved nooks:\n");
+    printf("Saved nooks:\n\n");
     char line[MAX_PATH];
     while (fgets(line, sizeof(line), file) != NULL) {
         line[strcspn(line, "\n")] = '\0';  // Remove trailing newline character
@@ -161,7 +161,7 @@ void show_all_spots() {
         char saved_spot[MAX_PATH];
         char saved_dir[MAX_PATH];
         if (sscanf(line, "%s %s", saved_spot, saved_dir) == 2) {
-            printf("%s: %s\n", saved_spot, saved_dir);
+            printf("\033[48;5;24m\033[37m%s:\033[0m \033[3m%s\033[0m\n", saved_spot, saved_dir);
         }
     }
 
