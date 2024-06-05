@@ -3,6 +3,7 @@ Effortlessly save and navigate to your favorite directories on any Unix-like sys
 
 ## Description
 nooks is a sleek and powerful utility that allows you to save and navigate to your most-used directories with lightning speed! 🌩 
+
 Say goodbye to lengthy `cd` commands and hello to streamlined directory navigation! 🎉
 
 ## Features
