@@ -65,7 +65,7 @@ void save_current_directory(const char *spot) {
         exit(1);
     }
 
-    printf("Current directory saved as spot '%s'\n", spot);
+    printf("Nook marked as '%s'\n", spot);
 }
 
 /**
@@ -105,7 +105,7 @@ void go_to_directory(const char *spot) {
             // Check if the spot matches the specified spot
             if (strcmp(saved_spot, spot) == 0) {
                 // Print the spot to which the relocation will occur
-                printf("Relocating to spot '%s': %s\n", spot, saved_dir);
+                printf("Leapt into the nook '%s': %s\n", spot, saved_dir);
 
                 // Change the current directory to the saved directory
                 if (chdir(saved_dir) == -1) {
@@ -139,7 +139,7 @@ void go_to_directory(const char *spot) {
     fclose(file);
 
     // Print an error message if the spot is not found
-    fprintf(stderr, "Spot '%s' not found\n", spot);
+    fprintf(stderr, "Nook '%s' not found\n", spot);
 }
 
 void show_all_spots() {
@@ -149,11 +149,11 @@ void show_all_spots() {
 
     FILE *file = fopen(config_path, "r");
     if (file == NULL) {
-        printf("No spots saved yet.\n");
+        printf("No nooks saved yet.\n");
         return;
     }
 
-    printf("Saved spots:\n");
+    printf("Saved nooks:\n");
     char line[MAX_PATH];
     while (fgets(line, sizeof(line), file) != NULL) {
         line[strcspn(line, "\n")] = '\0';  // Remove trailing newline character
