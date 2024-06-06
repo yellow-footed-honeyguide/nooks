@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(nooks VERSION 1.1.0)
+project(nooks VERSION 1.2.0)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
@@ -23,3 +23,4 @@ if(INSTALL_TO_TARGET_DIR)
     install(TARGETS nooks
             RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
+

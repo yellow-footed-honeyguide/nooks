@@ -15,7 +15,7 @@ void handle_arguments(int argc, char *argv[]) {
         {"all",  no_argument,       0, 'a'},
         {"help", no_argument,       0, 'h'},
         {"version", no_argument,    0, 'v'},
-        {"quiet", no_argument, 0, 'q'},
+        {"quiet", no_argument,      0, 'q'},
         {0,      0,                 0,  0 }
     };
     

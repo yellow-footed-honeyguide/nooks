@@ -193,6 +193,7 @@ void print_help() {
     printf("\n");
     printf("Options:\n");
     printf("  -s, --save [NAME]   Save the current directory with an optional NAME (default: 'default')\n");
+    printf("  -q, --quiet         Quiet mode\n");
     printf("  -a, --all           Show all saved directories\n");
     printf("  -h, --help          Display this help and exit\n");
     printf("\n");

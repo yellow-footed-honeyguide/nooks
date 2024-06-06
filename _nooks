@@ -1,0 +1,59 @@
+_nooks_show_options() {
+  local -a option_descriptions saved_dirs
+  option_descriptions=(
+    '--all  -a  -- Show all saved directories'
+    '--help -h  -- Display help and exit'
+    '--quiet -q -- Quiet mode'
+    '--save -s  -- Save the current directory with an optional NAME'
+  )
+  saved_dirs=( $(cut -d' ' -f1 ~/.nooks) )
+
+  # Display options with a header
+  echo "\nOptions:"
+  for opt in "${option_descriptions[@]}"; do
+    echo "$opt"
+  done
+  echo ""
+
+  # Display saved directories with a header
+  echo "Your nooks:"
+  local dirs_line=""
+  for dir in "${saved_dirs[@]}"; do
+    dirs_line+="$dir "
+  done
+  echo $dirs_line
+  echo ""
+}
+
+_nooks_completion() {
+  local state
+  local -a options
+  options=(
+    '-s[Save the current directory with an optional NAME (default: "default")]'
+    '--save[Save the current directory with an optional NAME (default: "default")]'
+    '-a[Show all saved directories]'
+    '--all[Show all saved directories]'
+    '-h[Display help and exit]'
+    '--help[Display help and exit]'
+    '-q[Quiet mode]'
+    '--quiet[Quiet mode]'
+  )
+
+  if [[ ${#words[@]} -eq 2 ]]; then
+    _nooks_show_options
+    return
+  fi
+
+  _arguments -s -C \
+    "$options[@]" \
+    "*::directory:_nooks_saved_dirs" \
+    && return 0
+
+  case $state in
+    directory)
+      _nooks_saved_dirs
+      ;;
+  esac
+}
+
+compdef _nooks_completion nooks
