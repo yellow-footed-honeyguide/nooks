@@ -115,8 +115,8 @@ void go_to_directory(const char *spot) {
                 // Print the spot to which the relocation will occur
                 if (!quiet_mode) {
                    //printf("Nook '%s': \033[3m%s\033[0m\n", spot, saved_dir);
-                   printf("\033[3m%s\033[0m\n", saved_dir);
-                   system("\ls -A -F --group-directories-first --sort=extension");
+                   //printf("\033[3m%s\033[0m\n", saved_dir);
+                   //system("\ls -A -F --group-directories-first --sort=extension");
                 }
 
                 // Change the current directory to the saved directory
@@ -124,6 +124,11 @@ void go_to_directory(const char *spot) {
                     perror("Error changing directory");
                     fclose(file);
                     exit(1);
+                }
+                else {
+
+                    printf("\033[3m%s\033[0m\n", saved_dir);
+                    system("\ls -A -F --group-directories-first --sort=extension");
                 }
 
                 // Close the configuration file
