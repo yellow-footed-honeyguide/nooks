@@ -40,8 +40,8 @@ nooks is a self-contained, pure C code that stands tall without the need for ext
 Set of steps for installation:
 
 ```
-git clone https://github.com/yellow-footed-honeyguide/uc.git 
-cd uc
+git clone https://github.com/yellow-footed-honeyguide/nooks.git 
+cd nooks
 mkdir build
 cd build
 cmake ..
