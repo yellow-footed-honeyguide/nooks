@@ -10,8 +10,8 @@ nookscompletion() {
   local state
   local -a options
   options=(
-    '-s[Save the current directory with an optional NAME (default: "default")]'
-    '--save[Save the current directory with an optional NAME (default: "default")]'
+    '-s[Save the current directory with an mark NAME]'
+    '--save-mark[Save the current directory with an mark NAME]'
     '-a[Show all saved directories]'
     '--all[Show all saved directories]'
     '-h[Display help and exit]'

@@ -127,8 +127,9 @@ void go_to_directory(const char *spot) {
                 }
                 else {
 
-                    printf("\033[3m%s\033[0m\n", saved_dir);
-                    system("\ls -A -F --group-directories-first --sort=extension");
+                    //printf("\033[3m%s\033[0m\n", saved_dir);
+                    //system("\ls -A -F --group-directories-first --sort=extension");
+                    system("facad");
                 }
 
                 // Close the configuration file
@@ -199,18 +200,13 @@ void print_help() {
     printf("Navigate to saved directories or save the current directory.\n");
     printf("\n");
     printf("Options:\n");
-    printf("  -s, --save [NAME]   Save the current directory with an optional NAME (default: 'default')\n");
-    printf("  -q, --quiet         Quiet mode\n");
-    printf("  -a, --all           Show all saved directories\n");
-    printf("  -h, --help          Display this help and exit\n");
-    printf("\n");
-    printf("If no options are provided, navigate to the directory specified by DIRECTORY.\n");
-    printf("If DIRECTORY is not provided, navigate to the default saved directory.\n");
+    printf("  -s, --save-mark [NAME] Save the current directory with an mark name\n");
+    printf("  -q, --quiet            Quiet mode\n");
+    printf("  -a, --all              Show all saved directories\n");
+    printf("  -h, --help             Display this help and exit\n");
     printf("\n");
     printf("Examples:\n");
-    printf("  nooks -s                   Save the current directory as the default directory\n");
     printf("  nooks -s work              Save the current directory with the name 'work'\n");
-    printf("  nooks                      Navigate to the default saved directory\n");
     printf("  nooks work                 Navigate to the directory saved with the name 'work'\n");
     printf("  nooks -a                   Show all saved directories\n");
     printf("\n");

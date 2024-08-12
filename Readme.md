@@ -57,9 +57,7 @@ sudo mv ./nooks /usr/local/bin/
 
 ### Examples of usage
 ```
-$ nooks -s              # Save the current directory as the default spot
 $ nooks -s work         # Save the current directory with the mark 'work'
-$ nooks                 # Navigate to the default saved directory
 $ nooks work            # Navigate to the directory saved as 'work'
 $ nooks -a              # Show all saved spots
 ```
