@@ -11,16 +11,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Add nooks version from header of this file to function that print --version
 target_compile_definitions(nooks PUBLIC NOOKS_VERSION="${PROJECT_VERSION}")
 
+# Find the install directory for executables
+include(GNUInstallDirs)
 
-# Add an option to install the binary to a target directory
-option(INSTALL_TO_TARGET_DIR "Install the binary to a target directory" OFF)
+# Set the install target for the executable
+install(TARGETS nooks
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-if(INSTALL_TO_TARGET_DIR)
-    # Find the install directory for executables
-    include(GNUInstallDirs)
-
-    # Set the install target for the executable
-    install(TARGETS nooks
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-endif()
-
+# You can optionally keep the INSTALL_TO_TARGET_DIR option if you want to make installation optional
+option(INSTALL_TO_TARGET_DIR "Install the binary to a target directory" ON)
