@@ -7,7 +7,6 @@
 
 int quiet_mode = 0;  // Global flag for quiet mode, initialized to false
 
-
 /**
  * @brief Enables quiet mode for the application
  *
@@ -18,12 +17,11 @@ void quit_work() {
     quiet_mode = 1;  // Set quiet mode flag to true
 }
 
-
 /**
  * @brief Saves the current directory with a specified name
- * 
+ *
  * @param spot The name to associate with the current directory
- * 
+ *
  * This function saves the current working directory to a configuration
  * file, associating it with the provided 'spot' name. If the spot
  * already exists, it updates the associated directory. The function
@@ -95,7 +93,6 @@ void save_current_directory(const char *spot) {
     }
 }
 
-
 /**
  * @brief Changes the current directory to a previously saved spot
  *
@@ -141,7 +138,15 @@ void go_to_directory(const char *spot) {
                     fclose(file);                        // Close config file
                     exit(1);                             // Exit program with error status
                 } else {
-                    system("facad");  // Execute 'facad' command
+                    // Check if facad is available and execute it, otherwise use ls
+                    if (system("which facad > /dev/null 2>&1") == 0) {
+                        system("facad");  // Execute custom 'facad' command if available
+                    } else {
+                        // Execute ls command with specific options if facad is not available
+                        system(
+                            "/usr/bin/ls -A -F --group-directories-first --sort=extension "
+                            "--color=always");
+                    }
                 }
 
                 fclose(file);  // Close config file
@@ -203,7 +208,6 @@ void show_all_spots() {
     fclose(file);  // Close config file
 }
 
-
 /**
  * @brief Displays the help information for the program
  *
@@ -233,7 +237,8 @@ void print_help() {
     printf("  nooks -a                   Show all saved directories\n");  // Print show all example
     printf("\n");                                                         // Print blank line
     printf(
-        "Report bugs to https://github.com/yellow-footed-honeyguide/nooks/issues\n");  // Print bug
+        "Report bugs to https://github.com/yellow-footed-honeyguide/nooks/issues\n");  // Print
+                                                                                       // bug
                                                                                        // report
                                                                                        // information
 }
