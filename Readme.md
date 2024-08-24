@@ -2,7 +2,7 @@
 Effortlessly save and navigate to your favorite directories on any Unix-like system!
 
 ## Description
-nooks is a sleek and powerful utility that allows you to save and navigate to your most-used directories with lightning speed! 🌩 
+nooks - a tool for bookmarking and navigating directories with lightning speed! 🌩 
 
 Say goodbye to lengthy `cd` commands and hello to streamlined directory navigation! 🎉
 
@@ -42,8 +42,7 @@ Set of steps for installation:
 ```
 git clone https://github.com/yellow-footed-honeyguide/nooks.git 
 cd nooks
-mkdir build
-cd build
+mkdir build && cd build
 cmake ..
 make
 ```
