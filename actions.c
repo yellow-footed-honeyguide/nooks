@@ -1,9 +1,16 @@
+#include <errno.h>
 #include <stdio.h>   // printf (function), fprintf (function), perror (function), FILE (type)
 #include <stdlib.h>  // getenv (function), exit (function)
 #include <string.h>  // strcmp (function), strcspn (function)
+#include <sys/wait.h>
 #include <unistd.h>  // getcwd (function), chdir (function), execvp (function)
 
 #include "actions.h"  // MAX_PATH (macro), CONFIG_FILE (macro), function prototypes
+
+#define FACAD_CMD "facad"  // Define command name for custom 'facad' utility
+#define LS_CMD "ls"        // Define command name for 'ls' utility
+// Define ls command arguments
+#define LS_ARGS "-A", "-F", "--group-directories-first", "--sort=extension", "--color=always"
 
 int quiet_mode = 0;  // Global flag for quiet mode, initialized to false
 
@@ -133,20 +140,30 @@ void go_to_directory(const char *spot) {
                     // Commented out print statements
                 }
 
-                if (chdir(saved_dir) == -1) {            // Change to saved directory
-                    perror("Error changing directory");  // Print error message
-                    fclose(file);                        // Close config file
-                    exit(1);                             // Exit program with error status
-                } else {
-                    // Check if facad is available and execute it, otherwise use ls
-                    if (system("which facad > /dev/null 2>&1") == 0) {
-                        system("facad");  // Execute custom 'facad' command if available
-                    } else {
-                        // Execute ls command with specific options if facad is not available
-                        system(
-                            "/usr/bin/ls -A -F --group-directories-first --sort=extension "
-                            "--color=always");
+                if (chdir(saved_dir) == -1) {  // Attempt to change to the saved directory
+                    fprintf(stderr, "Error changing to directory %s: %s\n", saved_dir,
+                            strerror(errno));  // Print detailed error message
+                    fclose(file);              // Close the config file
+                    exit(1);                   // Return error code instead of exiting
+                }
+
+                pid_t pid = fork();     // Create a child process
+                if (pid == -1) {        // Check if fork failed
+                    perror("fork");     // Print error message for fork failure
+                    fclose(file);       // Close the config file
+                    exit(1);            // Return error code
+                } else if (pid == 0) {  // Child process code
+                    // Attempt to execute facad command
+                    if (execlp(FACAD_CMD, FACAD_CMD, NULL) == -1) {
+                        // If facad not found, try to execute ls command
+                        execlp(LS_CMD, LS_CMD, LS_ARGS, NULL);
                     }
+                    // If both facad and ls failed, print error and exit
+                    perror("exec failed");
+                    _exit(EXIT_FAILURE);
+                } else {  // Parent process code
+                    int status;
+                    waitpid(pid, &status, 0);  // Wait for child process to finish
                 }
 
                 fclose(file);  // Close config file
