@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
-project(nooks VERSION 1.3.4)
+project(nooks VERSION 1.3.5)
+
+# Set C standard
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
+# Add executable
 add_executable(nooks nooks.c handle_arguments.c actions.c)
 
 # Set the default build output directory
@@ -18,5 +21,10 @@ include(GNUInstallDirs)
 install(TARGETS nooks
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-# You can optionally keep the INSTALL_TO_TARGET_DIR option if you want to make installation optional
+# Install Zsh completion script
+install(FILES _nooks
+        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/zsh/site-functions
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
+
+# Option for custom installation
 option(INSTALL_TO_TARGET_DIR "Install the binary to a target directory" ON)

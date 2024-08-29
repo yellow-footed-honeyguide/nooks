@@ -1,29 +1,55 @@
-# Function to extract tags from ~/.nooks file
+#compdef nooks
+
+# Function to load and complete tags from ~/.nooks file
 _nooks_tags() {
-  local -a tags
-  tags=($(awk '{print $1}' ~/.nooks))
-  _describe 'tag' tags
+    local -a tags
+    # Read tags from ~/.nooks file, one per line
+    tags=(${(f)"$(awk '{print $1}' ~/.nooks 2>/dev/null)"})
+    # Present tags as completion options
+    _describe 'tag' tags
 }
 
-# Autocompletion function for nooks
-nookscompletion() {
-  local state
-  local -a options
-  options=(
-    '-s[Save the current directory with an mark NAME]'
-    '--save-mark[Save the current directory with an mark NAME]'
-    '-a[Show all saved directories]'
-    '--all[Show all saved directories]'
-    '-h[Display help and exit]'
-    '--help[Display help and exit]'
-    '-q[Quiet mode]'
-    '--quiet[Quiet mode]'
-  )
+# Main completion function for nooks
+_nooks() {
+    local context state state_descr line
+    typeset -A opt_args
 
-  _arguments -s -C \
-    "$options[@]" \
-    "*:: :_nooks_tags" \
-    && return 0
+    # Define all possible options for nooks
+    local -a nooks_options=(
+        '(-s --save-mark)'{-s,--save-mark}'[Save current directory with NAME]'
+        '(-a --all)'{-a,--all}'[Show all saved directories]'
+        '(-h --help)'{-h,--help}'[Display help and exit]'
+        '(-q --quiet)'{-q,--quiet}'[Quiet mode]'
+        '(-v --version)'{-v,--version}'[Display version information]'
+    )
+
+    # Set up argument completion
+    _arguments -C \
+        $nooks_options[@] \
+        '1: :->cmds' \
+        '*:: :->args' && return 0
+
+    # Handle different completion states
+    case $state in
+        cmds)
+            # If no argument is given yet, complete with tags
+            _nooks_tags
+            ;;
+        args)
+            # If an argument is already given, check what it is
+            case $line[1] in
+                -s|--save-mark)
+                    # For -s or --save-mark, prompt for a name
+                    _message 'name for saved directory'
+                    ;;
+                *)
+                    # For any other case, complete with tags
+                    _nooks_tags
+                    ;;
+            esac
+            ;;
+    esac
 }
 
-compdef nookscompletion nooks
+# Execute the completion function
+_nooks "$@"
