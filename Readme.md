@@ -65,12 +65,10 @@ $ nooks -a              # Show all saved spots
 ### Executing program
 ![usage-example](assets/nooks.gif)
 
-## Authors
-Contributors names and contact info
-
-ex. Sergey Veneckiy 
-
-mail: s.venetsky@gmail.com
+## Author
+**Sergey Veneckiy**
+- Email: s.venetsky@gmail.com
+- GitHub: [@yellow-footed-honeyguide](https://github.com/yellow-footed-honeyguide)
 
 ## License
 This project is licensed under the MIT License

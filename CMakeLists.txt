@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(nooks VERSION 1.4.1)
+project(nooks VERSION 1.4.2)
 
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED True)
