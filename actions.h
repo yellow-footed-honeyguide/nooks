@@ -5,6 +5,7 @@
 #define CONFIG_FILE "/.nooks"
 
 void save_current_directory(const char *spot);
+void remove_mark(const char *mark);
 void go_to_directory(const char *spot);
 void show_all_spots();
 void print_usage();

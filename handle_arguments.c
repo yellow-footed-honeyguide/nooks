@@ -13,10 +13,13 @@ void handle_arguments(int argc, char *argv[]) {  // Function to process command-
     char *directory_name = NULL;                 // Pointer to store the directory name
     int save_mark_option_used = 0;               // Flag for save-mark option usage
     int all_option_used = 0;                     // Flag for all option usage
+    char *mark_name = NULL;
+    int delete_option_used = 0;                  // Flag for delete mark option
 
     // Define long options for getopt_long
     static struct option long_options[] = {
         {"save-mark", required_argument, 0, 's'},  // Option to save current directory
+        {"delete-mark", required_argument, 0, 'd'},  // Option to save current directory
         {"all", no_argument, 0, 'a'},              // Option to show all saved spots
         {"help", no_argument, 0, 'h'},             // Option to display help
         {"version", no_argument, 0, 'v'},          // Option to display version
@@ -27,11 +30,15 @@ void handle_arguments(int argc, char *argv[]) {  // Function to process command-
     int long_index = 0;  // Index of the current option in long_options array
 
     // Parse command-line options using getopt_long
-    while ((opt = getopt_long(argc, argv, "s:ahvq", long_options, &long_index)) != -1) {
+    while ((opt = getopt_long(argc, argv, "s:d:ahvq", long_options, &long_index)) != -1) {
         switch (opt) {                      // Switch on the current option
             case 's':                       // Save current directory with provided name
                 directory_name = optarg;    // Store the provided directory name
                 save_mark_option_used = 1;  // Set the flag for save-mark option
+                break;
+						case 'd':
+                mark_name = optarg;
+                delete_option_used = 1;     // Set the flag for delete-mark option
                 break;
             case 'a':                 // Show all saved spots
                 all_option_used = 1;  // Set the flag for all option
@@ -57,7 +64,7 @@ void handle_arguments(int argc, char *argv[]) {  // Function to process command-
                 } else {                 // For other unknown options
                     fprintf(stderr, "Unknown option '-%c'.\n", optopt);  // Print error message
                     fprintf(stderr,
-                            "Usage: %s [-s|--save-mark mark_name] [-a|--all] [-h|--help] "
+                            "Usage: %s [-s|--save-mark mark_name] [-d|--delete-mark mark_name] [-a|--all] [-h|--help] "
                             "[directory_name]\n",
                             argv[0]);    // Print usage information
                     exit(EXIT_FAILURE);  // Exit the program with failure status
@@ -68,20 +75,25 @@ void handle_arguments(int argc, char *argv[]) {  // Function to process command-
         }
     }
 
-    // Handle the -a or --all option
+    // Handle the --all or -a option
     if (all_option_used) {
-        show_all_spots();  // Call function to display all saved spots
-        return;            // Exit the function
+        show_all_spots();  
+        return;           
     }
 
-    // Handle the --save or -s option
+    // Handle the --save-mark or -s option
     if (save_mark_option_used) {
-        save_current_directory(
-            directory_name);  // Call function to save current directory with provided name
+        save_current_directory(directory_name);
+    }
+
+    // Handle the --delete-mark or -d option
+    if (delete_option_used) {
+        puts("hello");
+        remove_mark(mark_name); 
     }
 
     // Handle non-option arguments (directory name without flag)
     if (optind < argc && !save_mark_option_used) {
-        go_to_directory(argv[optind]);  // Call function to navigate to the provided directory
+        go_to_directory(argv[optind]);
     }
 }

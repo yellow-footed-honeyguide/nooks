@@ -9,7 +9,6 @@
 
 #define FACAD_CMD "facad"  // Define command name for custom 'facad' utility
 #define LS_CMD "ls"        // Define command name for 'ls' utility
-// Define ls command arguments
 #define LS_ARGS "-A", "-F", "--group-directories-first", "--sort=extension", "--color=always"
 
 int quiet_mode = 0;  // Global flag for quiet mode, initialized to false
@@ -41,7 +40,11 @@ void save_current_directory(const char *spot) {
              CONFIG_FILE);  // Construct config file path
 
     char temp_path[MAX_PATH];  // Buffer for temporary file path
-    snprintf(temp_path, sizeof(temp_path), "%s.tmp", config_path);  // Construct temporary file path
+    // Construct temporary file path
+    if (strncat(strcpy(temp_path, config_path), ".tmp",
+                sizeof(temp_path) - strlen(config_path) - 1) != temp_path) {
+        fprintf(stderr, "Path truncated\n");
+    }
 
     FILE *file = fopen(config_path, "r");     // Open config file for reading
     FILE *temp_file = fopen(temp_path, "w");  // Open temporary file for writing
@@ -263,9 +266,30 @@ void print_help() {
 /**
  * @brief Prints the version information of the program
  *
- * This function outputs the version number of the application,
- * which is defined in the NOOKS_VERSION macro.
+ * Example: nooks -v, nooks --version
+ * Value of NOOKS_VERSION macro defined in CMakeLists.txt
  */
 void print_version() {
     printf("%s\n", NOOKS_VERSION);  // Print version information
+}
+
+/**
+ * @brief Remove selected mark.
+ * config_name is hardcoded
+ * Example: nooks -d work
+ *
+ */
+void remove_mark(const char *mark) {
+    const char *home_dir = getenv("HOME");
+    char config_name[256];
+    snprintf(config_name, sizeof(config_name), "%s/.nooks", home_dir);
+    FILE *f = fopen(config_name, "r"), *t = fopen("temp", "w");
+    char s[100];
+    size_t len = strlen(mark);
+    while (fgets(s, 100, f))
+        if (strncmp(s, mark, len)) fputs(s, t);
+    fclose(f);
+    fclose(t);
+    remove(config_name);
+    rename("temp", config_name);
 }

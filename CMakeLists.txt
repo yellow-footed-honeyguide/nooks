@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
-project(nooks VERSION 1.3.5)
+project(nooks VERSION 1.4.1)
 
-# Set C standard
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
-# Add executable
+add_compile_options(-Wall -Wextra -Wpedantic)
+
 add_executable(nooks nooks.c handle_arguments.c actions.c)
 
 # Set the default build output directory
