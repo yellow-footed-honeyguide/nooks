@@ -20,7 +20,7 @@ void handle_arguments(int argc, char *argv[]) {  // Function to process command-
     static struct option long_options[] = {
         {"save-mark", required_argument, 0, 's'},  // Option to save current directory
         {"delete-mark", required_argument, 0, 'd'},  // Option to save current directory
-        {"all", no_argument, 0, 'a'},              // Option to show all saved spots
+        {"all-marks", no_argument, 0, 'a'},        // Option to show all saved spots
         {"help", no_argument, 0, 'h'},             // Option to display help
         {"version", no_argument, 0, 'v'},          // Option to display version
         {"quiet", no_argument, 0, 'q'},            // Option for quiet mode
@@ -57,14 +57,14 @@ void handle_arguments(int argc, char *argv[]) {  // Function to process command-
                     fprintf(stderr, "Option -%c requires an argument.\n",
                             optopt);  // Print error message
                     fprintf(stderr,
-                            "Usage: %s [-s|--save-mark mark_name] [-a|--all] [-h|--help] "
+                            "Usage: %s [-s|--save-mark mark_name] [-a|--all-marks] [-h|--help] "
                             "[directory_name]\n",
                             argv[0]);    // Print usage information
                     exit(EXIT_FAILURE);  // Exit the program with failure status
                 } else {                 // For other unknown options
                     fprintf(stderr, "Unknown option '-%c'.\n", optopt);  // Print error message
                     fprintf(stderr,
-                            "Usage: %s [-s|--save-mark mark_name] [-d|--delete-mark mark_name] [-a|--all] [-h|--help] "
+                            "Usage: %s [-s|--save-mark mark_name] [-d|--delete-mark mark_name] [-a|--all-marks] [-h|--help] "
                             "[directory_name]\n",
                             argv[0]);    // Print usage information
                     exit(EXIT_FAILURE);  // Exit the program with failure status
@@ -75,7 +75,7 @@ void handle_arguments(int argc, char *argv[]) {  // Function to process command-
         }
     }
 
-    // Handle the --all or -a option
+    // Handle the --all-marks or -a option
     if (all_option_used) {
         show_all_spots();  
         return;           

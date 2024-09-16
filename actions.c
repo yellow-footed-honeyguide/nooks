@@ -211,7 +211,7 @@ void show_all_spots() {
         return;                            // Exit function
     }
 
-    printf("Saved nooks:\n\n");                        // Print header for saved nooks
+    printf("Marked paths:\n");                         // Print header for saved nooks
     char line[MAX_PATH];                               // Buffer for reading lines from config file
     while (fgets(line, sizeof(line), file) != NULL) {  // Read config file line by line
         line[strcspn(line, "\n")] = '\0';              // Remove trailing newline character
@@ -220,8 +220,8 @@ void show_all_spots() {
         char saved_dir[MAX_PATH];   // Buffer for directory path in current line
         if (sscanf(line, "%s %s", saved_spot, saved_dir) ==
             2) {  // Extract spot and directory from line
-            printf("\033[48;5;24m\033[37m%s:\033[0m \033[3m%s\033[0m\n", saved_spot,
-                   saved_dir);  // Print spot and directory with formatting
+            // Print spot and directory with formatting
+            printf("\033[48;2;230;240;250m\033[38;2;0;70;120m\033[1m%s:\033[0m \033[38;2;80;80;80m%s\033[0m\n", saved_spot, saved_dir);
         }
     }
 
@@ -240,27 +240,19 @@ void print_help() {
     printf("Navigate to saved directories or save the current directory.\n");  // Print description
     printf("\n");                                                              // Print blank line
     printf("Options:\n");  // Print options header
-    printf("  -s, --save-mark [NAME] Save the current directory with an mark name\n");  // Print
-                                                                                        // save-mark
-                                                                                        // option
-    printf("  -q, --quiet            Quiet mode\n");                  // Print quiet mode option
-    printf("  -a, --all              Show all saved directories\n");  // Print show all option
-    printf("  -h, --help             Display this help and exit\n");  // Print help option
-    printf("\n");                                                     // Print blank line
-    printf("Examples:\n");                                            // Print examples header
-    printf(
-        "  nooks -s work              Save the current directory with the name 'work'\n");  // Print
-                                                                                            // save
-                                                                                            // example
-    printf(
-        "  nooks work                 Navigate to the directory saved with the name 'work'\n");  // Print navigate example
-    printf("  nooks -a                   Show all saved directories\n");  // Print show all example
-    printf("\n");                                                         // Print blank line
-    printf(
-        "Report bugs to https://github.com/yellow-footed-honeyguide/nooks/issues\n");  // Print
-                                                                                       // bug
-                                                                                       // report
-                                                                                       // information
+    printf("  -s, --save-mark [NAME]   Save the current directory with an mark name\n");  
+    printf("  -d, --delete-mark [NAME] Delete saved mark\n");  
+    printf("  -q, --quiet              Quiet mode\n");      
+    printf("  -a, --all-marks          Show all saved directories\n");
+    printf("  -h, --help               Display this help and exit\n");
+    printf("\n");                                                    
+    printf("Examples:\n");                                          
+    printf("  nooks -s work            Save the current directory with the name 'work'\n"); 
+    printf("  nooks -d work            Delete mark 'work'\n"); 
+    printf("  nooks work               Navigate to the directory saved with the name 'work'\n"); 
+    printf("  nooks -a                 Show all saved directories\n");
+    printf("\n");                                                      
+    printf("Report bugs to https://github.com/yellow-footed-honeyguide/nooks/issues\n");
 }
 
 /**
