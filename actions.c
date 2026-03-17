@@ -35,6 +35,11 @@ void quit_work() {
  */
 void save_current_directory(const char *spot) {
     char *home_dir = getenv("HOME");  // Get user's home directory
+    if (home_dir == NULL) {
+        perror("Error getting home directory");
+        exit(1);
+    }
+
     char config_path[MAX_PATH];       // Buffer for config file path
     snprintf(config_path, sizeof(config_path), "%s%s", home_dir,
              CONFIG_FILE);  // Construct config file path
@@ -47,6 +52,13 @@ void save_current_directory(const char *spot) {
     }
 
     FILE *file = fopen(config_path, "r");     // Open config file for reading
+    if (file == NULL && errno == ENOENT) {
+        file = fopen(config_path, "w+");      // Create config file on first run
+        if (file != NULL) {
+            rewind(file);
+        }
+    }
+
     FILE *temp_file = fopen(temp_path, "w");  // Open temporary file for writing
 
     if (file == NULL) {                // Check if config file opened successfully
